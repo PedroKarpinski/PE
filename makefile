@@ -1,5 +1,5 @@
-all: bignumber.o
-	gcc bignumber.o client.c -o client
+CC = gcc
+CFLAGS = -std=c99 -Wall -Wextra -Wvla -g
 
 ifeq ($(OS),Windows_NT)
     RM = del /Q
@@ -9,8 +9,11 @@ else
     EXECUTABLE = cliente
 endif
 
+all: bignumber.o
+	$(CC) $(CFLAGS) bignumber.o client.c -o $(EXECUTABLE)
+
 bignumber.o: bignumber.h
-	gcc -c bignumber.c
+	$(CC) $(CFLAGS) -c bignumber.c
 
 clean:
 	$(RM) *.o $(EXECUTABLE)
